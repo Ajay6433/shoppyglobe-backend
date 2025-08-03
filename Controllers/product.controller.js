@@ -19,8 +19,8 @@ import Product from "../Models/Product.model.js";
 //     }
 // }
 // seedProducts();
-
 export async function getProducts(req,res){
+    console.log(req.user.id);
     try{
         const products = await Product.find();
         if(products.length === 0){
