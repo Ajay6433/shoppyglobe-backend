@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { userRoutes } from './Routes/user.routes.js';
 import { productRoutes } from './Routes/products.route.js';
+import { cartRoutes } from './Routes/cart.routes.js';
 import dbConnet from './Config/db.config.js';
 import { authUser } from './Middlewares/auth.middleware.js';
 const app = express();
@@ -18,6 +19,7 @@ dbConnet();
 
 app.use('/', userRoutes);
 app.use('/',authUser, productRoutes);
+app.use('/', authUser, cartRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
