@@ -1,17 +1,23 @@
 import jwt from 'jsonwebtoken';
 
-export function authUser(req,res,next){
+export function authUser(req, res, next) {
+    // Extracting token from the Authorization header: "Bearer <token>"
     const token = req.headers.authorization?.split(" ")[1];
-    if(!token){
-        return res.status(401).json({message: "Unauthorized access"});
+
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized access" });
     }
-    console.log("Token received:", token);
+
     try {
-        // Assuming a function verifyToken exists to validate the token
+        // Verifying the token using JWT secret key
         const user = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = user; // Attach user info to request object
-        next(); // Proceed to the next middleware or route handler
+
+        // Attaching the decoded user data to the request object
+        req.user = user;
+
+        // Proceed to the next middleware or route
+        next();
     } catch (error) {
-        return res.status(403).json({message: "Invalid token", error: error.message});
+        return res.status(403).json({ message: "Invalid token", error: error.message });
     }
 }

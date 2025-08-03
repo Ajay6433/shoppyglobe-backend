@@ -3,8 +3,11 @@ import { getProducts, getProductById } from '../Controllers/product.controller.j
 
 const router = express.Router();
 
+// Fetch all products
 router.get('/products', getProducts);
+
+// Fetch a single product by its ID (from the URL)
 router.get('/product/:id', getProductById);
 
-
-export { router as productRoutes};
+// Export the router to use in the main app
+export { router as productRoutes };

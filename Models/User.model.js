@@ -1,23 +1,23 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
-        required: true,
+        required: true, // Name is mandatory
     },
-    email:{
+    email: {
         type: String,
-        required: true,
-        unique: true,
+        required: true, // Email is mandatory
+        unique: true,   // Ensures no duplicate email in the DB
     },
-    password:{
+    password: {
         type: String,
-        required: true,
-        match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ // Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number
-
-
+        required: true, 
+        // Password must be at least 8 characters long and contain:
+        // one uppercase letter, one lowercase letter, and one number
+        match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
     }
-})
+});
 
 const User = mongoose.model("user", userSchema);
 export default User;
